@@ -1,0 +1,37 @@
+﻿@inject SignInManager<IdentityUser> signInManager
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (signInManager.IsSignedIn(User))
+{
+    if (User.IsInRole("user"))
+    {
+        <h1 class="display-4">Welcome</h1>
+        <a asp-controller="user" asp-action="">Your queue and shops near you</a>
+        <br />
+        <a asp-controller="user" asp-action="edit">Your information with us</a>
+    }
+    else
+    {
+        <h1 class="display-4">Welcome</h1>
+        <a asp-controller="merchant" asp-action="">Your shop's queue</a>
+        <br />
+        <a asp-controller="merchant" asp-action="edit">Your information with us</a>
+    }
+}
+else
+{
+    <h1 class="display-3"> Welcome to Queue</h1>
+    <div class="text-left">
+        <h1 class="display-4">User</h1>
+        <a asp-controller="user" asp-action="login">Login</a>
+        <a asp-controller="user" asp-action="register">Register</a>
+    </div>
+
+    <div class="text-left">
+        <h1 class="display-4">Merchant</h1>
+        <a asp-controller="merchant" asp-action="login">Login</a>
+        <a asp-controller="merchant" asp-action="register">Register</a>
+    </div>
+}

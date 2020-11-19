@@ -1,0 +1,118 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "User Home Page";
+    var totalmerch = 0;
+    var totalqueue = 0;
+}
+
+<div class="text-left">
+    <h1 class="display-4">Get location based stores</h1>
+</div>
+<br />
+<button onclick="getLocation()" class="btn btn-dark">Click Here to fill below parameters and then click "Find Shops"</button>
+<br />
+<form method="post" asp-controller="user" asp-action="change">
+    <br />
+    <h5>"Shops near you" is displaying shops based on below parameters</h5>
+    <br />
+    <div class="form-group">
+        <div class="form-row">
+            <div class="col">
+                <label for="longitude1">Longitude</label>&nbsp;<span class="text-danger">*</span>
+                <input readonly id="longitude1" name="Longitude" value="@ViewData["long"]" class="form-control" required />
+            </div>
+            <div class="col">
+                <label for="latitude1">Latitude</label>&nbsp;<span class="text-danger">*</span>
+                <input readonly id="latitude1" name="Latitude" class="form-control" value="@ViewData["lati"]" required />
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Find Shops</button>
+</form>
+<br />
+<br />
+<div class="text-left">
+    <h1 class="display-4">Your Queue</h1>
+</div>
+<br />
+<a asp-controller="user" asp-action="index">Refresh</a>
+<br />
+<h3 class="text-danger">@ViewData["exists"]</h3>
+<div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+        @foreach (var merchant in Model.myqueue)
+        {
+            totalqueue = 1;
+            <li class="list-group-item">
+                <h5>@merchant.MerchantShopName</h5>
+                <h6>@merchant.MerchantFirstName @merchant.MerchantLastName - Owner</h6>
+                Mobile number: @merchant.MerchantPhoneNumber <br />
+                Email: @merchant.MerchantEmail <br />
+                Address: @merchant.MerchantAddress1 <br />
+                Landmark: @merchant.MerchantAddress2 <br />
+                Pincode: @merchant.MerchantPinCode <br />
+            </li>
+        }
+    </ul>
+</div>
+
+@if (totalqueue == 0)
+{
+    <h3 class="text-info">Your queue is empty!!!</h3>
+}
+<br />
+<br />
+<div class="text-left">
+    <h1 class="display-4">Shops near you</h1>
+</div>
+<br />
+<div class="@*col mb-4*@ card-columns center">
+    @foreach (var merchant in Model.merchants)
+    {
+        @*<div class="row row-cols-1 row-cols-md-2">*@
+        totalmerch = 1;
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@merchant.MerchantShopName</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@merchant.MerchantFirstName @merchant.MerchantLastName - Owner</h6>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Mobile number: @merchant.MerchantPhoneNumber</li>
+                    <li class="list-group-item">Email: @merchant.MerchantEmail</li>
+                    <li class="list-group-item">Address: @merchant.MerchantAddress1</li>
+                    <li class="list-group-item">Landmark: @merchant.MerchantAddress2</li>
+                    <li class="list-group-item">Pincode: @merchant.MerchantPinCode</li>
+                </ul>
+                <form method="post" asp-controller="user" asp-action="index" asp-route-id="@merchant.MerchantEmail">
+                    <button type="submit" class="nav-link btn btn-primary">Join Queue</button>
+                </form>
+            </div>
+        </div>
+
+        @* </div>*@
+    }
+</div>
+
+@if (totalmerch == 0)
+{
+    <h3 class="text-info">No shops near you!!!</h3>
+}
+
+<script>
+var x = document.getElementById("location");
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function showPosition(position) {
+        @*x.innerHTML = "Latitude: " + position.coords.latitude +
+            "<br>Longitude: " + position.coords.longitude; *@
+        document.getElementById("longitude1").value = position.coords.longitude;
+        document.getElementById("latitude1").value = position.coords.latitude;
+    }
+</script>

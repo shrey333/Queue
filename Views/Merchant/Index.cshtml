@@ -1,0 +1,30 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Merchant Home Page";
+    var queue = 0;
+}
+
+
+<div class="text-left">
+    <h1 class="display-4">Your Queue</h1>
+</div>
+<div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+        @foreach (var user in Model.myqueue)
+        {
+            queue = 1;
+            <li class="list-group-item">
+                <h5>@user.UserFirstName @user.UserLastName</h5>
+                Mobile number: @user.UserPhoneNumber <br />
+                Email: @user.UserEmail <br />
+            </li>
+            <form method="post" asp-controller="merchant" asp-action="index" asp-route-id="@user.UserEmail">
+                <button class="btn btn-primary nav-link" type="submit">Take in</button>
+            </form>
+        }
+    </ul>
+</div>
+@if (queue == 0)
+{
+    <h3 class="text-info">No one is standing in your queue!!!</h3>
+}

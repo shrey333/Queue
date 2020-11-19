@@ -1,0 +1,36 @@
+﻿@model Queue.ViewModels.MerchantEdit
+
+@{
+    ViewBag.Title = "Merchant Delete";
+
+}
+<div class="text-left">
+    <h1 class="display-4">Delete Your Information</h1>
+</div>
+
+<dl class="row">
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.MerchantShopName)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.MerchantShopName)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.MerchantFirstName)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.MerchantFirstName)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.MerchantLastName)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.MerchantLastName)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Email)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.Email)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.MerchantAddress1)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.MerchantAddress1)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.MerchantAddress2)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.MerchantAddress2)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.MerchantPinCode)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.MerchantPinCode)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.MerchantLatitude)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.MerchantLatitude)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.MerchantLongitude)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.MerchantLongitude)</dd>
+</dl>
+<h6>Are you sure?!</h6>
+<form method="post" asp-controller="merchant" asp-action="delete">
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
